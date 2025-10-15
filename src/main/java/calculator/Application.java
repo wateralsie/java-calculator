@@ -9,6 +9,8 @@ public class Application {
         System.out.println("덧셈할 문자열을 입력해 주세요.");
         Scanner sc = new Scanner(System.in);
         String userInput = sc.nextLine();
+        int result = app.addNumbers(app.parseNumbers(userInput));
+        System.out.println("결과 : " + result);
     }
 
     public StringTokenizer parseNumbers(String input) {
