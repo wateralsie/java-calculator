@@ -14,4 +14,12 @@ public class Application {
     public StringTokenizer parseNumbers(String input) {
         return new StringTokenizer(input, ",:");
     }
+
+    public int addNumbers(StringTokenizer st) {
+        int total = 0;
+        while (st.hasMoreElements()) {
+            total += Integer.parseInt(st.nextToken());
+        }
+        return total;
+    }
 }
