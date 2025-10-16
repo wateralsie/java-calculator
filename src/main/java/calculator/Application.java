@@ -10,14 +10,22 @@ public class Application {
         Application app = new Application();
         System.out.println("덧셈할 문자열을 입력해 주세요.");
         Scanner sc = new Scanner(System.in);
-        String userInput = sc.nextLine();
-        app.addCustomDelimiter(userInput.replace("\\n", "\n"));
-//        int result = app.addNumbers(app.parseNumbers(userInput));
-//        System.out.println("결과 : " + result);
+        String userInput = sc.nextLine().replace("\\n", "\n");
+
+        String customDelims = app.addCustomDelimiter(userInput.replace("\\n", "\n"));
+        String[] dividedUserInput = userInput.split("\\R");
+        int result = app.addNumbers(app.parseNumbers(dividedUserInput[dividedUserInput.length - 1], customDelims));
+
+        System.out.println("결과 : " + result);
     }
 
     public StringTokenizer parseNumbers(String input) {
         return new StringTokenizer(input, ",:");
+    }
+
+    public StringTokenizer parseNumbers(String input, String customDelim) {
+        String delims = ",:" + customDelim;
+        return new StringTokenizer(input, delims);
     }
 
     public int addNumbers(StringTokenizer st) {
@@ -28,11 +36,13 @@ public class Application {
         return total;
     }
 
-    public void addCustomDelimiter(String input) {
+    public String addCustomDelimiter(String input) {
+        StringBuilder sb = new StringBuilder();
         Pattern customDelimiterPattern = Pattern.compile("//(.)\\R");
         Matcher matcher = customDelimiterPattern.matcher(input);
         while (matcher.find()) {
-            System.out.println(matcher.group(1));
+            sb.append(matcher.group(1));
         }
+        return sb.toString();
     }
 }
