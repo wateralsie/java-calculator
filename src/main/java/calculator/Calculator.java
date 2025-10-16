@@ -5,41 +5,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Calculator {
+
     public void run() {
         Input input = new Input();
         String userInput = input.read();
-
-        String customDelims = addCustomDelimiter(userInput.replace("\\n", "\n"));
-        String[] dividedUserInput = userInput.split("\\R");
-        int result = addNumbers(parseNumbers(dividedUserInput[dividedUserInput.length - 1], customDelims));
-
+        Extractor extractor = new Extractor(userInput);
+        StringTokenizer numberList = extractor.parseNumbers();
+        int result = add(numberList);
         System.out.println("결과 : " + result);
     }
 
-    public StringTokenizer parseNumbers(String input) {
-        return new StringTokenizer(input, ",:");
-    }
-
-    public StringTokenizer parseNumbers(String input, String customDelim) {
-        String delims = ",:" + customDelim;
-        return new StringTokenizer(input, delims);
-    }
-
-    public int addNumbers(StringTokenizer st) {
+    private int add(StringTokenizer st) {
         int total = 0;
         while (st.hasMoreElements()) {
             total += Integer.parseInt(st.nextToken());
         }
         return total;
-    }
-
-    public String addCustomDelimiter(String input) {
-        StringBuilder sb = new StringBuilder();
-        Pattern customDelimiterPattern = Pattern.compile("//(.)\\R");
-        Matcher matcher = customDelimiterPattern.matcher(input);
-        while (matcher.find()) {
-            sb.append(matcher.group(1));
-        }
-        return sb.toString();
     }
 }
