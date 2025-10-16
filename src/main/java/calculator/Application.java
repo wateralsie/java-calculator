@@ -9,7 +9,7 @@ public class Application {
     public static void main(String[] args) {
         Application app = new Application();
         Input input = new Input();
-        String userInput = input.getString();
+        String userInput = input.read();
 
         String customDelims = app.addCustomDelimiter(userInput.replace("\\n", "\n"));
         String[] dividedUserInput = userInput.split("\\R");
