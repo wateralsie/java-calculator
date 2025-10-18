@@ -1,5 +1,7 @@
 package calculator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,13 +18,16 @@ public class Extractor {
         parse(str);
     }
 
-    public StringTokenizer parseNumbers() {
+    public List<Integer> parseNumbers() {
         StringTokenizer tokens = new StringTokenizer(numbersString, delims);
+        List<Integer> numbers = new ArrayList<>();
         while (tokens.hasMoreTokens()) {
+            String token = tokens.nextToken();
             // 추출한 결과가 숫자가 아닐 때
-            if (!tokens.nextToken().matches("[0-9]+")) throw new IllegalArgumentException("에러 3");
+            if (!token.matches("[0-9]+")) throw new IllegalArgumentException("에러 3");
+            numbers.add(Integer.parseInt(token));
         }
-        return tokens;
+        return numbers;
     }
 
     private void parse(String str) {

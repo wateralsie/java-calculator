@@ -1,5 +1,6 @@
 package calculator;
 
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,19 +18,15 @@ public class Calculator {
         else if (userInput.matches("[,:]+")) result = 0;
         else {
             Extractor extractor = new Extractor(userInput);
-            StringTokenizer numberList = extractor.parseNumbers();
+            List<Integer> numberList = extractor.parseNumbers();
             // 커스텀 구분자만 있고 숫자가 없음 (커스텀 구분자 지정 양식 + 커스텀 구분자만)
-            if (numberList.countTokens() == 0) result = 0;
+            if (numberList.isEmpty()) result = 0;
             else result = add(numberList);
         }
         System.out.println("결과 : " + result);
     }
 
-    private int add(StringTokenizer st) {
-        int total = 0;
-        while (st.hasMoreElements()) {
-            total += Integer.parseInt(st.nextToken());
-        }
-        return total;
+    private int add(List<Integer> numbers) {
+        return numbers.stream().mapToInt(Integer::intValue).sum();
     }
 }
