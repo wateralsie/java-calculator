@@ -17,7 +17,6 @@ public class Input {
         return convertToLineBreak(input);
     }
 
-    // todo: string util로 변환 가능해보임
     private String convertToLineBreak(String str) {
         return str.replace("\\n", "\n");
     }
